@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8" />
@@ -25,7 +23,7 @@
     <!-- Responsive navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: fixed; width: 100%">
         <div class="container px-5">
-            <a class="navbar-brand" href="../index.html">êµ¬í´ì¤ íì¦</a>
+            <a class="navbar-brand" href="../index.html">구해줘 홈즈</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -36,29 +34,29 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
                     </li>
-                    <li class="nav-item" id="login-suc"><a class="nav-link" href="login.html">ë¡ê·¸ì¸</a></li>
-                    <li class="nav-item" id="reg-suc"><a class="nav-link" href="register.html">íìê°ì</a></li>
-                    <li class="nav-item hide" id="logout"><a class="nav-link" href="#">ë¡ê·¸ìì</a></li>
-                    <li class="nav-item hide" id="info"><a class="nav-link" href="#">ë§ì´íì´ì§</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">ê³µì§ì¬í­</a></li>
+                    <li class="nav-item" id="login-suc"><a class="nav-link" href="login.html">로그인</a></li>
+                    <li class="nav-item" id="reg-suc"><a class="nav-link" href="register.html">회원가입</a></li>
+                    <li class="nav-item hide" id="logout"><a class="nav-link" href="#">로그아웃</a></li>
+                    <li class="nav-item hide" id="info"><a class="nav-link" href="#">마이페이지</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">공지사항</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="login-box">
-        <h2>íìê°ì</h2>
+        <h2>회원가입</h2>
         <form>
             <div class="user-box">
                 <input id="id" type="text" name="" required="">
-                <label>ìì´ë<span style="color: #c95050;">*</span></label>
+                <label>아이디<span style="color: #c95050;">*</span></label>
             </div>
             <div class="user-box">
                 <input id="password" type="password" name="" required="">
-                <label>ë¹ë°ë²í¸<span style="color: #c95050;">*</span></label>
+                <label>비밀번호<span style="color: #c95050;">*</span></label>
             </div>
             <div class="user-box">
                 <input id="name" type="text" name="" required="">
-                <label>ì´ë¦<span style="color: #c95050;">*</span></label>
+                <label>이름<span style="color: #c95050;">*</span></label>
             </div>
             <div class="user-box">
                 <input id="email" type="email" name="" required="">
@@ -66,9 +64,9 @@
             </div>
             <div class="user-box">
                 <input id="phonenumber" type="text" name="" required="">
-                <label>ì íë²í¸<span style="color: #c95050;">*</span></label>
+                <label>전화번호<span style="color: #c95050;">*</span></label>
             </div>
-            <a href="#" onclick="regist()">ë±ë¡</a>
+            <a href="#" onclick="regist()">등록</a>
         </form>
     </div>
     <!-- Header-->
