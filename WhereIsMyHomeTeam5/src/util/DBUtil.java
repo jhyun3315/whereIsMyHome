@@ -23,7 +23,7 @@ public class DBUtil {
 		return con;
 	}
 	
-	public void close(AutoCloseable... closes) throws Exception {
+	public static void close(AutoCloseable... closes) throws Exception {
 
 		for (AutoCloseable close : closes) {
 			close.close();

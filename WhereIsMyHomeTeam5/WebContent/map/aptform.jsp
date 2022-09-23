@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,16 +50,16 @@
               >
             </li>
             <li class="nav-item" id="login-suc">
-            <a class="nav-link" href="../login.jsp">로그인</a>
+            <a class="nav-link" href="login.html">로그인</a>
             </li>
             <li class="nav-item" id="reg-suc">
-              <a class="nav-link" href="/user/register.jsp">회원가입</a>
+              <a class="nav-link" href="register.html">회원가입</a>
             </li>
             <li class="nav-item hide" id="logout">
               <a class="nav-link" href="#" onclick="logout()">로그아웃</a>
             </li>
             <li class="nav-item hide" id="info">
-              <a class="nav-link" href="/user/userInfo.jsp">마이페이지</a>
+              <a class="nav-link" href="userInfo.html">마이페이지</a>
             </li>
             <li class="nav-item"><a class="nav-link" href="#!">공지사항</a></li>
           </ul>

@@ -59,7 +59,7 @@
               <a class="nav-link" href="#" onclick="logout()">로그아웃</a>
             </li>
             <li class="nav-item hide" id="info">
-              <a class="nav-link" href="user/userInfo.html">마이페이지</a>
+              <a class="nav-link" href="user/userInfo.jsp">마이페이지</a>
             </li>
             <li class="nav-item"><a class="nav-link" href="#!">공지사항</a></li>
           </ul>
@@ -87,7 +87,7 @@
             <h2 class="h4 fw-bolder">아파트 실거래</h2>
             <p>아파트의 실거래가 정보를 제공합니다.</p>
             <br />
-            <a class="text-decoration-none" href="#" onclick="checkLog()">
+            <a class="text-decoration-none" href="map/aptform.jsp" onclick="checkLog()">
               조회하러 가기.
               <i class="bi bi-arrow-right"></i>
             </a>
