@@ -17,12 +17,28 @@ public class MemberController extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
+		
 	}
 
 	private void process(HttpServletRequest request, HttpServletResponse response) {
+		String action = request.getParameter("action");
+		System.out.println("action ===" + action);
 		
+		try {
+			if (action != null) {
+				if (action.equals("insertmember")) {
+					url = insertMember(request, response);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
+	private String insertMember(HttpServletRequest request, HttpServletResponse response) {
+		return null;
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
