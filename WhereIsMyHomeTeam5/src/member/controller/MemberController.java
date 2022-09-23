@@ -26,16 +26,21 @@ public class MemberController extends HttpServlet {
 		
 		try {
 			if (action != null) {
-				if (action.equals("insertmember")) {
-					url = insertMember(request, response);
+				if (action.equals("registmember")) {
+					url = registMember(request, response);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	private String insertMember(HttpServletRequest request, HttpServletResponse response) {
+
+	private String registMember(HttpServletRequest request, HttpServletResponse response) {
+		String userId = request.getParameter("userId");
+		String userPw = request.getParameter("userPw");
+		String userName = request.getParameter("userName");
+		String userEmail = request.getParameter("userEmail");
+		String userPhoneNum = request.getParameter("userPhoneNum");
 		return null;
 	}
 
