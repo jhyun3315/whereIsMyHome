@@ -42,7 +42,7 @@ function regist() {
 
         localStorage.setItem("user", JSON.stringify(user));
         alert("회원 등록 성공");
-        window.location.replace("login.html");
+        window.location.replace("/user/login.html");
     }
 }
 
@@ -62,7 +62,7 @@ function login() {
         alert("로그인 성공");
         hideToggle();
         localStorage.setItem("isLogin", "true");
-        window.location.replace("index.html");
+        window.location.replace("/index.html");
     } else {
         console.log(user);
         alert("아이디 혹은 비밀번호를 잘못 입력하였습니다.");
@@ -72,7 +72,7 @@ function login() {
 function logout() {
     hideToggle();
     localStorage.setItem("isLogin", "false");
-    window.location.replace("index.html");
+    window.location.replace("/index.html");
 }
 
 const user = JSON.parse(localStorage.getItem("user")); 
@@ -117,21 +117,21 @@ function modify() {
     // const user2 = JSON.parse(localStorage.getItem("user"));
     // console.log(user2);
     alert("회원정보 수정 성공");
-    window.location.replace("userInfo.html");
+    window.location.replace("/user/userInfo.html");
 }
 
 function clearUser() {
     localStorage.clear();
     alert("회원정보를 삭제합니다.");
-    window.location.replace("index.html");
+    window.location.replace("/index.html");
 }
 
 function checkLog() {
     console.log(isLogin);
     if (isLogin === "true") {
-        window.location.replace("aptRealList.html");
+        window.location.replace("/aptRealList.html");
     } else {
         alert("로그인이 필요합니다.");
-        window.location.replace("login.html");
+        window.location.replace("/user/login.html");
     }
 }
