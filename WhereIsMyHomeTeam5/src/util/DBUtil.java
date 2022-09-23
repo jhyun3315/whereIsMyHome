@@ -17,7 +17,7 @@ public class DBUtil {
 	public static Connection getConnection() throws SQLException {
 		if (con == null || con.isClosed()) {
 			con = DriverManager.getConnection(
-					"jdbc:mysql://127.0.0.1:3306/webdaejeon6?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8",
+					"jdbc:mysql://127.0.0.1:3306/whereismyhome?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8",
 					"ssafy", "ssafy");
 		}
 		return con;
