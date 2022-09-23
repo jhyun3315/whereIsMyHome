@@ -1,0 +1,21 @@
+﻿.main-title {
+  display: flex;
+  justify-content: center;
+}
+
+.main-title > p {
+  font-size: 30px;
+  font-weight: 700;
+  font-style: italic;
+  color: gray;
+}
+
+.apt-info-map {
+  display: flex;
+  justify-content: center;
+}
+
+.apt-info-graph {
+  display: flex;
+  justify-content: center;
+}
