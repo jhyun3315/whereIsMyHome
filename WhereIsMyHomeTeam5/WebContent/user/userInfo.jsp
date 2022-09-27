@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -35,7 +36,7 @@
                         <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item" id="login-suc"><a class="nav-link" href="#">로그인</a></li>
-                    <li class="nav-item" id="reg-suc"><a class="nav-link" href="#">회원가입</a></li>
+                    <li class="nav-item" id="reg-suc"><a class="nav-link" href="user?action=registmemberform">회원가입</a></li>
                     <li class="nav-item hide" id="logout"><a class="nav-link" href="#" onclick="logout()">로그아웃</a></li>
                     <li class="nav-item hide" id="info"><a class="nav-link" href="userInfo.html">마이페이지</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">공지사항</a></li>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -30,7 +30,7 @@
       style="position: fixed; width: 100%"
     >
       <div class="container px-5">
-        <a class="navbar-brand" href="index.html">구해줘 홈즈</a>
+        <a class="navbar-brand" href="index.jsp">구해줘 홈즈</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -45,7 +45,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html"
+              <a class="nav-link active" aria-current="page" href="index.jsp"
                 >Home</a
               >
             </li>
@@ -53,7 +53,7 @@
               <a class="nav-link" href="user/login.html">로그인</a>
             </li>
             <li class="nav-item" id="reg-suc">
-              <a class="nav-link" href="user/register.html">회원가입</a>
+              <a class="nav-link" href="user?action=registmemberform">회원가입</a>
             </li>
             <li class="nav-item hide" id="logout">
               <a class="nav-link" href="#" onclick="logout()">로그아웃</a>
