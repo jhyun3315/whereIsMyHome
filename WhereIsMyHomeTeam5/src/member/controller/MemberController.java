@@ -1,47 +1,112 @@
 package member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.dto.Member;
+import member.service.MemberService;
+import member.service.MemberServiceImpl;
+
 @WebServlet("/user")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private String url = new String();
-	
-	
-
-	@Override
-	public void init() throws ServletException {
-		
+	private MemberService service;
+	public MemberController() {
+		service = MemberServiceImpl.getMemberService();
 	}
 
-	private void process(HttpServletRequest request, HttpServletResponse response) {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String action = request.getParameter("action");
-		System.out.println("action ===" + action);
+		System.out.println("action === " + action);
 		
+		url = "index.jsp";
 		try {
 			if (action != null) {
-				if (action.equals("registmember")) {
+				if (action.equals("registmemberform")) {
+					url = "user/register.jsp";
+				} else if (action.equals("registmember")) {
 					url = registMember(request, response);
+				} else if (action.equals("loginform")) {
+					url = "user/login.jsp";
+				} else if (action.equals("login")) {
+					url = login(request, response);
+				} else if (action.equals("userinfo")) {
+					url = listMember(request, response);
+				} else if (action.equals("modifyform")) {
+					url = "user/userModify.jsp";
+				} else if (action.equals("modifymember")) {
+					url = updateMember(request, response);
+				} else if (action.equals("")) {
+					
+				} else if (action.equals("")) {
+					
+				} else if (action.equals("")) {
+					
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		if (url.startsWith("redirect")) {
+			url = url.substring(url.indexOf(":")+1);
+			response.sendRedirect(url);
+		} else {
+			request.getRequestDispatcher(url).forward(request, response);
+		}
 	}
 
-	private String registMember(HttpServletRequest request, HttpServletResponse response) {
+	private String updateMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userId = request.getParameter("userId");
 		String userPw = request.getParameter("userPw");
 		String userName = request.getParameter("userName");
 		String userEmail = request.getParameter("userEmail");
 		String userPhoneNum = request.getParameter("userPhoneNum");
-		return null;
+		service.updateMember(userId, userPw, userName, userEmail, userPhoneNum);
+		
+		String url = "redirect:user?action=userinfo";
+		return url;
+	}
+
+	private String listMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String userId = (String) request.getSession().getAttribute("userinfo");
+		Member m = service.selectMember(userId);
+		request.setAttribute("mem", m);
+		
+		String url = "user/userInfo.jsp";
+		return url;
+	}
+
+	private String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String userId = request.getParameter("userId");
+		String userPw = request.getParameter("userPw");
+		boolean result = service.login(userId, userPw);
+		if (result) {
+			request.getSession().setAttribute("userinfo", userId);
+			url = "index.jsp";
+		} else {
+			url = "redirect:user?action=loginform";
+		}
+		return url;
+	}
+
+	private String registMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String userId = request.getParameter("userId");
+		String userPw = request.getParameter("userPw");
+		String userName = request.getParameter("userName");
+		String userEmail = request.getParameter("userEmail");
+		String userPhoneNum = request.getParameter("userPhoneNum");
+		
+		service.insertMember(userId, userPw, userName, userEmail, userPhoneNum);
+		String url = "redirect:user?action=loginform";
+		return url;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
