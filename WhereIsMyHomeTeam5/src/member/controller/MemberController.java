@@ -26,7 +26,6 @@ public class MemberController extends HttpServlet {
 		String action = request.getParameter("action");
 		System.out.println("action === " + action);
 		
-		url = "index.jsp";
 		try {
 			if (action != null) {
 				if (action.equals("registmemberform")) {
@@ -49,10 +48,14 @@ public class MemberController extends HttpServlet {
 					url = logout(request, response);
 				}
 			} else {
-				
+				url = "index.jsp";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("msg", e.getMessage());
+			request.setAttribute("exception", e);
+			request.setAttribute("comments", "그따구로 입력할거면 꺼져");
+			url = "error/error.jsp";
 		}
 		
 		if (url.startsWith("redirect")) {
