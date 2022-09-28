@@ -74,7 +74,7 @@
                 <label>전화번호</label>
             </div>
             <a href="user?action=modifyform">수정</a>
-            <a href="#" onclick="clearUser()">삭제</a>
+            <a href="user?action=deletemember" >삭제</a> <!-- onclick="clearUser()" -->
         </form>
     </div>
     <!-- Header-->

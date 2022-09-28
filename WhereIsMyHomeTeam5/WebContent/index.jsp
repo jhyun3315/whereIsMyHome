@@ -63,7 +63,7 @@
             
             <c:if test="${!empty userinfo}">
 	            <li class="nav-item" id="logout">
-	              <a class="nav-link" href="#" onclick="logout()">로그아웃</a>
+	              <a class="nav-link" href="user?action=logout">로그아웃</a> <!-- onclick="logout()" -->
 	            </li>
 	            <li class="nav-item" id="info">
 	              <a class="nav-link" href="user?action=userinfo">마이페이지</a>

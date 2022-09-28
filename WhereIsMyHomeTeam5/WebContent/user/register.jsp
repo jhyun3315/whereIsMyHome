@@ -23,11 +23,20 @@
 	    window.onload = function() {
 	        document.querySelector("#registbutton").addEventListener("click", function() {
 	            if(document.getElementById("userId").value.length <= 0) {
-	                alert("id를 입력하세요");
+	                alert("아이디를 입력하세요.");
 	                document.getElementById("userId").focus();
 	                return;            
 	            } else if(document.getElementById("userPw").value.length <= 0) {
 	                alert("비번은 4자 이상");
+	                return;
+	            } else if(document.getElementById("userName").value.length <= 0) {
+	                alert("이름을 입력하세요.");
+	                return;
+	            } else if(document.getElementById("userEmail").value.length <= 0) {
+	                alert("이메일을 입력하세요.");
+	                return;
+	            } else if(document.getElementById("userPhoneNum").value.length <= 0) {
+	                alert("전화번호를 입력하세요.");
 	                return;
 	            }
 	            document.getElementById("regform").submit();

@@ -25,14 +25,17 @@
 	            if(document.getElementById("userPw").value.length <= 0) {
 	                alert("비번은 4자 이상");
 	                return;
-	            } else if(document.getElementById("userName").value.length <= 0) {
-	                alert("비번은 4자 이상");
+	            }
+	            if(document.getElementById("userName").value.length <= 0) {
+	                alert("이름을 입력해주세요.");
 	                return;
-	            } else if(document.getElementById("userEmail").value.length <= 0) {
-	                alert("비번은 4자 이상");
+	            }
+	            if(document.getElementById("userEmail").value.length <= 0) {
+	                alert("이메일을 입력해주세요.");
 	                return;
-	            } else if(document.getElementById("userPhoneNum").value.length <= 0) {
-	                alert("비번은 4자 이상");
+	            }
+	            if(document.getElementById("userPhoneNum").value.length <= 0) {
+	                alert("전화번호를 입력해주세요.");
 	                return;
 	            } 
 	            document.getElementById("modiform").submit();
@@ -70,7 +73,7 @@
         <form action="user" method="GET" id="modiform">
         	<input type="hidden" name="action" value="modifymember">
             <div class="user-box">
-                <input class="info" id="userId" type="text" name="userId" value="${mem.userId}" readonly>
+                <input class="info" id="userId" type="text" name="userId" value="${userinfo}" readonly>
                 <label>아이디</label>
             </div>
             <div class="user-box">

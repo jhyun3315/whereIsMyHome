@@ -43,10 +43,10 @@ public class MemberController extends HttpServlet {
 					url = "user/userModify.jsp";
 				} else if (action.equals("modifymember")) {
 					url = updateMember(request, response);
-				} else if (action.equals("")) {
-					
-				} else if (action.equals("")) {
-					
+				} else if (action.equals("deletemember")) {
+					url = deleteMember(request, response);
+				} else if (action.equals("logout")) {
+					url = logout(request, response);
 				} else if (action.equals("")) {
 					
 				}
@@ -61,6 +61,22 @@ public class MemberController extends HttpServlet {
 		} else {
 			request.getRequestDispatcher(url).forward(request, response);
 		}
+	}
+
+	private String logout(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().invalidate();
+		
+		String url = "redirect:index.jsp";
+		return url;
+	}
+
+	private String deleteMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String userId = (String) request.getSession().getAttribute("userinfo");
+		service.deleteMember(userId);
+		request.getSession().invalidate();
+		
+		String url = "redirect:index.jsp";
+		return url;
 	}
 
 	private String updateMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
