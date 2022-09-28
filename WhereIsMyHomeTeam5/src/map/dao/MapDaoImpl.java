@@ -111,7 +111,7 @@ public class MapDaoImpl implements MapDao{
 			while(rs.next()) {  //시도군 저장
 				String sido = rs.getString("sidoName"); 
 				
-				q = "SELECT distinct gugunName FROM dongcode where sidoName= ?";
+				q = "SELECT distinct gugunName FROM dongcode where sidoName= ? limit 10";
 				
 				PreparedStatement stgugun = con.prepareStatement(q);   
 				stgugun.setString(1, sido);
@@ -122,7 +122,7 @@ public class MapDaoImpl implements MapDao{
 				while(rsgugun.next()) { 
 					String gugun = rsgugun.getString("gugunName"); 
 					if(gugun!=null) {
-						q = "SELECT distinct dongName FROM dongcode where gugunName=?";
+						q = "SELECT distinct dongName FROM dongcode where gugunName=? limit 10";
 						
 						PreparedStatement stdong = con.prepareStatement(q);   
 						stdong.setString(1, gugun);

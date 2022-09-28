@@ -135,11 +135,7 @@
         </div>
       </div>
     </section>
-    <c:if test = "${!empty msg}" >
-    	<script>
-    		alert(msg);
-    	</script>
-    </c:if>
+
     <!-- Footer-->
     <footer class="py-3 bg-dark">
       <div class="container px-5">
