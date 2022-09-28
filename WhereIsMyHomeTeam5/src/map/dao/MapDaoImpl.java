@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,12 +93,62 @@ public class MapDaoImpl implements MapDao{
 	}
 
  
-
 	@Override
-	public Map<String, String[]> select() {
-		// TODO Auto-generated method stub
-		return null;
-	} 
+	public HashMap<String, HashMap<String, ArrayList<String>>> sidogugunmap(){ 
+		HashMap<String, HashMap<String, ArrayList<String>>>datamap = new HashMap<String, HashMap<String, ArrayList<String>>>();
+		
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null; 
+		
+		try {  
+			con = dbutil.getConnection(); 
+			String q = "SELECT distinct sidoName FROM dongcode"; 
+			st = con.prepareStatement(q);   
+			rs = st.executeQuery();
+			 
+			
+			while(rs.next()) {  //시도군 저장
+				String sido = rs.getString("sidoName"); 
+				
+				q = "SELECT distinct gugunName FROM dongcode where sidoName= ?";
+				
+				PreparedStatement stgugun = con.prepareStatement(q);   
+				stgugun.setString(1, sido);
+				ResultSet rsgugun  = stgugun.executeQuery(); 
+				
+				HashMap<String, ArrayList<String>> gugundonmap = new HashMap<String, ArrayList<String>>();
+				 
+				while(rsgugun.next()) { 
+					String gugun = rsgugun.getString("gugunName"); 
+					if(gugun!=null) {
+						q = "SELECT distinct dongName FROM dongcode where gugunName=?";
+						
+						PreparedStatement stdong = con.prepareStatement(q);   
+						stdong.setString(1, gugun);
+						ResultSet rsdong  = stdong.executeQuery();  
 	
+						ArrayList<String> values = new ArrayList<String>();
+						
+						while(rsdong.next()) {
+							String dong = rsdong.getString("dongName");
+						
+							if(gugun!=null && dong !=null) values.add(dong);
+						} 
+						gugundonmap.put(gugun, values);  
+					} 
+				}
+				datamap.put(sido, gugundonmap); 
+			};
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		DBUtil.close(rs, st, con); 
+		return datamap; 
+		 
+	}
+ 
 
 }

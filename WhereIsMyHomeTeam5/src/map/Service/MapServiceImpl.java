@@ -1,5 +1,7 @@
 package map.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
  
 import map.dao.MapDao;
@@ -28,6 +30,11 @@ public class MapServiceImpl implements MapService{
 	@Override
 	public List<String> sidoNamelist() { 
 		return dao.sidoNamelist();
+	}
+
+	@Override
+	public HashMap<String, HashMap<String, ArrayList<String>>> sidogugunmap() {
+		return dao.sidogugunmap();
 	}
 
 	

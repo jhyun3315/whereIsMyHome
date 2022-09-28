@@ -1,6 +1,8 @@
 package map.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.sun.net.httpserver.HttpServer;
 
 import map.Service.MapService;
 import map.Service.MapServiceImpl;
@@ -54,9 +59,19 @@ public class MapController extends HttpServlet {
 	}   
     
     private String mapform(HttpServletRequest request, HttpServletResponse response) {
-    	List<String> sidonameList = mapservice.sidoNamelist();
+    	//세션으로 로그인 되어있으면 local에 저장하기
+    	HttpSession session = request.getSession();
+    	System.out.println(session);
     	
-		return "/map/mapform.jsp";
+    	if(session == null) {
+    		request.setAttribute("msg", "로그인 이후 사용 가능합니다.");  
+    		return "index.jsp";
+    	}else {
+    		
+    		HashMap<String,HashMap<String,ArrayList<String>>> sidogugunmap = mapservice.sidogugunmap(); 
+    		return "/map/mapform.jsp";
+    	}
+    	    	 
 	}
 
 	private String listmap(HttpServletRequest request, HttpServletResponse response) {

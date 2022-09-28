@@ -96,7 +96,8 @@
             <h2 class="h4 fw-bolder">아파트 실거래</h2>
             <p>아파트의 실거래가 정보를 제공합니다.</p>
             <br />
-            <a class="text-decoration-none" href="map/aptform.jsp" onclick="checkLog()">
+            <!--  onclick="checkLog()" 로그인시 조회할수 있도록 -->
+            <a class="text-decoration-none" href="map?action=mapform">
               조회하러 가기.
               <i class="bi bi-arrow-right"></i>
             </a>
@@ -134,6 +135,11 @@
         </div>
       </div>
     </section>
+    <c:if test = "${!empty msg}" >
+    	<script>
+    		alert(msg);
+    	</script>
+    </c:if>
     <!-- Footer-->
     <footer class="py-3 bg-dark">
       <div class="container px-5">
