@@ -1,12 +1,16 @@
 package map.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpCookie;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +43,7 @@ public class MapController extends HttpServlet {
 				if (action.equals("mapform")) {
 					url = mapform(request, response);
 				}else if(action.equals("mvlmap")) {
-					url = "/aptform.jsp";
+					url = "/mapform.jsp";
 				}
 			}else {
 				url = "index.jsp";
@@ -58,20 +62,25 @@ public class MapController extends HttpServlet {
 		}
 	}   
     
-    private String mapform(HttpServletRequest request, HttpServletResponse response) {
-    	//세션으로 로그인 되어있으면 local에 저장하기
-    	HttpSession session = request.getSession();
-    	System.out.println(session);
+    private String mapform(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {  
+    	Cookie[] cookies = request.getCookies();
+    	boolean flag = false; 
     	
-    	if(session == null) {
-    		request.setAttribute("msg", "로그인 이후 사용 가능합니다.");  
-    		return "index.jsp";
-    	}else {
-    		
-    		HashMap<String,HashMap<String,ArrayList<String>>> sidogugunmap = mapservice.sidogugunmap(); 
-    		return "/map/mapform.jsp";
+    	for(Cookie c : cookies) { 
+    		if(c.getName() == "selData") {
+    			flag = true;
+    			break;
+    		}
     	}
-    	    	 
+    	
+    	if(!flag) { 
+    		HashMap<String,HashMap<String,ArrayList<String>>> sidogugunmap = mapservice.sidogugunmap(); 
+    		Cookie cookie = new Cookie("selData",URLEncoder.encode(sidogugunmap.toString(), "UTF-8"));  
+    		cookie.setMaxAge(60*60*24); 
+    		response.addCookie(cookie); 
+    	} 
+    	
+    	return "/map/mapform.jsp";
 	}
 
 	private String listmap(HttpServletRequest request, HttpServletResponse response) {

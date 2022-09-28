@@ -105,7 +105,7 @@ public class MemberController extends HttpServlet {
 		String userPw = request.getParameter("userPw");
 		boolean result = service.login(userId, userPw);
 		if (result) {
-			request.getSession().setAttribute("userinfo", userId);
+			request.getSession().setAttribute("userinfo", userId); 
 			url = "index.jsp";
 		} else {
 			url = "redirect:user?action=loginform";
