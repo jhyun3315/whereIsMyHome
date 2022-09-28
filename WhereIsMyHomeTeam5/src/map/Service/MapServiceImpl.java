@@ -19,24 +19,20 @@ public class MapServiceImpl implements MapService{
 	public static MapService getMapService() {
 		return mapservice;
 	}
-	
+	 
 	@Override
-	public List<MapDto> selectmap(String sidoName, String gugunName, String dongName) throws Exception {
-		
-		List<MapDto> selectMember = dao.selectmap(sidoName, gugunName, dongName);
-		return selectMember; 
+	public ArrayList<String> getsido() { 
+		return dao.getsido();
 	}
 
 	@Override
-	public List<String> sidoNamelist() { 
-		return dao.sidoNamelist();
+	public ArrayList<String> getgugun(String sidoName) { 
+		return dao.getgugun(sidoName);
 	}
 
 	@Override
-	public HashMap<String, HashMap<String, ArrayList<String>>> sidogugunmap() {
-		return dao.sidogugunmap();
-	}
-
-	
+	public ArrayList<String> getdong(String gugunName) { 
+		return dao.getdong(gugunName);
+	} 
 	
 }

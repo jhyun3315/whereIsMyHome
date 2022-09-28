@@ -24,10 +24,8 @@ public class MapDaoImpl implements MapDao{
 		return mapdao;
 	}
 
-	
-	@Override
-	public List<MapDto> selectmap(String sidoName, String gugunName, String dongName) throws Exception {
-		
+	 
+	public List<MapDto> selectmap(String sidoName, String gugunName, String dongName) throws Exception {	
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -64,36 +62,88 @@ public class MapDaoImpl implements MapDao{
 		return list; 
 	}
 
-	@Override
-	public List<String> sidoNamelist() {
+ 
+	
+	public ArrayList<String> getsido(){
 		Connection con = null;
 		PreparedStatement st = null;
-		ResultSet rs = null;
-		List<String> list = new ArrayList<String>();
-		
-		try { 
- 
+		ResultSet rs = null; 
+		ArrayList<String> lst = new ArrayList<>();
+		try {  
 			con = dbutil.getConnection(); 
-			String q = "SELECT sidoName FROM whereismyhome.sidocode";// 3
-			st = con.prepareStatement(q); 
-			
-			st = con.prepareStatement(q);
+			String q = "SELECT distinct sidoName FROM dongcode"; 
+			st = con.prepareStatement(q);   
 			rs = st.executeQuery();
-			while(rs.next()) { 
-				list.add(rs.getString("sidoName"));
-			};
+			
+			while(rs.next()) {  
+				lst.add(rs.getString("sidoName"));
+			}
+			
+			dbutil.close(con,st, rs);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 		
-		DBUtil.close(rs, st, con); 
-		return list; 
-		 
+		return lst; 
 	}
-
- 
-	@Override
+	
+	
+	public ArrayList<String> getgugun(String sidoName){
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null; 
+		ArrayList<String> lst = new ArrayList<>();
+		System.out.println(sidoName);
+		
+		try {  
+			con = dbutil.getConnection(); 
+			String q = "SELECT distinct gugunName FROM dongcode where sidoName= ? ";
+			st.setString(1, sidoName);
+			st = con.prepareStatement(q);   
+			rs = st.executeQuery();
+			
+			while(rs.next()) {  
+				lst.add(rs.getString("gugunName"));
+			}
+			
+			dbutil.close(con,st, rs);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lst; 
+	}
+	
+	
+	public ArrayList<String> getdong(String gugunName){
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null; 
+		ArrayList<String> lst = new ArrayList<>();
+		
+		try {  
+			con = dbutil.getConnection(); 
+			String q  = "SELECT distinct dongName FROM dongcode where gugunName=? ";
+			st.setString(1, gugunName);
+			st = con.prepareStatement(q);   
+			rs = st.executeQuery();
+			
+			while(rs.next()) {  
+				lst.add(rs.getString("dongName"));
+			}
+			
+			dbutil.close(con,st, rs);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lst; 
+	}
+	
+  
 	public HashMap<String, HashMap<String, ArrayList<String>>> sidogugunmap(){ 
 		HashMap<String, HashMap<String, ArrayList<String>>>datamap = new HashMap<String, HashMap<String, ArrayList<String>>>();
 		
@@ -135,9 +185,12 @@ public class MapDaoImpl implements MapDao{
 						
 							if(gugun!=null && dong !=null) values.add(dong);
 						} 
+						
+						dbutil.close(stdong,rsdong);
 						gugundonmap.put(gugun, values);  
 					} 
 				}
+				dbutil.close(stgugun,rsgugun);
 				datamap.put(sido, gugundonmap); 
 			};
 			

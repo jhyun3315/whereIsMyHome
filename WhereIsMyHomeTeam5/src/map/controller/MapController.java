@@ -63,37 +63,11 @@ public class MapController extends HttpServlet {
 	}   
     
     private String mapform(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {  
-    	Cookie[] cookies = request.getCookies();
-    	boolean flag = false; 
-    	
-    	for(Cookie c : cookies) { 
-    		if(c.getName() == "selData") {
-    			flag = true;
-    			break;
-    		}
-    	}
-    	
-    	if(!flag) { 
-    		HashMap<String,HashMap<String,ArrayList<String>>> sidogugunmap = mapservice.sidogugunmap(); 
-    		Cookie cookie = new Cookie("selData",URLEncoder.encode(sidogugunmap.toString(), "UTF-8"));  
-    		cookie.setMaxAge(60*60*24); 
-    		response.addCookie(cookie); 
-    	} 
-    	
+    	request.setAttribute("sidolist", mapservice.getsido()); 
+//    	request.setAttribute("gugunlist", mapservice.getgugun(request.getParameter("selsido")));
     	return "/map/mapform.jsp";
 	}
-
-	private String listmap(HttpServletRequest request, HttpServletResponse response) {
-		 
-		return null;
-	}
-
-	public MapController() {
-        super();
-    }
-    
-    
-    
+  
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
 		process(request, response); 
