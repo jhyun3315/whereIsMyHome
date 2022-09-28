@@ -47,9 +47,9 @@ public class MemberController extends HttpServlet {
 					url = deleteMember(request, response);
 				} else if (action.equals("logout")) {
 					url = logout(request, response);
-				} else if (action.equals("")) {
-					
 				}
+			} else {
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
