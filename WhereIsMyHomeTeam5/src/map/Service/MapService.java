@@ -7,4 +7,5 @@ import map.dto.MapDto;
 public interface MapService { 
 	
 	public List<MapDto> selectmap(String sidoName, String gugunName, String dongName) throws Exception;  
+	public List<String> sidoNamelist();
 }
