@@ -1,19 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
-
+ 
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/include/head.jsp"%>
-<link rel="stylesheet" href="${root}/css/aptInfo.css" />
-	<script type="text/javascript">
-	
-	
-	</script>
+	<%@ include file="/include/head.jsp"%>
+	<link rel="stylesheet" href="${root}/css/aptInfo.css"/>
 </head>
-
 <body> 
 	<%@ include file="/include/nav.jsp"%>
 	<header class="py-5">
@@ -22,42 +15,16 @@
 				<p>아파트 실거래가</p>
 			</div>
 		</div>
-		<div class="apt-info-section"
-			style="display: flex; justify-content: center;">
+		<div class="apt-info-section" style="display: flex; justify-content: center;">
 			<div class="row col-md-12 justify-content-center mb-2" style="width: 80%;">
-				<div class="form-group col-md-2">
-					<select class="form-select bg-secondary text-light" id="sido" name="sido" onchange="selectBoxChange(this.value)">
-						<option value="">시도선택</option>
-						<c:forEach var="sidolist" items="${sidolist}" varStatus="status">
-							<option value="${sidolist}">${sidolist}</option>
-						</c:forEach>
+				<div class="form-group col-md-2"> 
+					<select class="form-select bg-secondary text-light" id="sido">
+						<option value="">시도선택</option> 
 					</select>
-				</div>
-				
-				<script>
-				function selectBoxChange(value){ 
-					let form={"selsido" :value} ;
-					
-					$ajax({
-					    url : "/map?act=mapform" ,
-					    type : "POST",
-					    data : form,
-					    success : function(data){
-					    	$('.result').text(data); },
-					    	error:function(request, status, error){
-								alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					    	} 
-					    });
-				}
-				</script>
-
-
+				</div>					
 				<div class="form-group col-md-2">
 					<select class="form-select bg-secondary text-light" id="gugun">
-						<option value="">구군선택</option>
-						<c:forEach var="gugun" items="${gugunlist}"	varStatus="status">
-							<option value="${gugun}">${gugun}</option>
-						</c:forEach>
+						<option value="">구군선택</option></option> 
 					</select>
 				</div>
 				<div class="form-group col-md-2">
@@ -79,8 +46,9 @@
 					style="margin-bottom: 20px; text-align: center;">
 					<button type="button" id="list-btn" class="btn btn-outline-primary">
 						아파트 매매정보 가져오기</button>
-				</div>
+				</div> 
 			</div>
+		</div>
 		</div>
 		<div class="apt-info-map">
 			<div id="map" style="width: 80%; height: 500px"></div>
@@ -126,6 +94,8 @@
 		</div>
 	</header>
 	<footer>
+	
+    	<script src="js/mapform.js"></script>
 		<%@ include file="/include/footer.jsp"%>
 	</footer>
 </body>

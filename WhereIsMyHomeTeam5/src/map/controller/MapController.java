@@ -1,6 +1,7 @@
 package map.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpCookie;
 import java.net.URLEncoder;
@@ -15,15 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+ 
 import com.sun.net.httpserver.HttpServer;
 
 import map.Service.MapService;
-import map.Service.MapServiceImpl;
+import map.Service.MapServiceImpl; 
+import com.google.gson.Gson; 
 
-/**
- * Servlet implementation class MapController
- */
+ 
 @WebServlet("/map")
 public class MapController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +43,9 @@ public class MapController extends HttpServlet {
 				if (action.equals("mapform")) {
 					url = mapform(request, response);
 				}else if(action.equals("mvlmap")) {
-					url = "/mapform.jsp";
+					url = "redirect:/mapform.jsp";
+				}else if(action.equals("xml")) {
+					
 				}
 			}else {
 				url = "index.jsp";
@@ -61,10 +63,21 @@ public class MapController extends HttpServlet {
 			request.getRequestDispatcher(url).forward(request, response);
 		}
 	}   
-    
-    private String mapform(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {  
-    	request.setAttribute("sidolist", mapservice.getsido()); 
-//    	request.setAttribute("gugunlist", mapservice.getgugun(request.getParameter("selsido")));
+     
+	
+    private String mapform(HttpServletRequest request, HttpServletResponse response) throws IOException {   
+    	String dongCode = request.getParameter("dongName");
+    	String year = request.getParameter("year");
+    	String month = request.getParameter("month");
+		   
+//		   String json = new Gson().toJson(lst);
+//		   System.out.println("보낼값 = " + lst); 
+//		   
+//			PrintWriter out = response.getWriter();
+//			
+//			out.print(lst);
+//			out.flush();
+//		    
     	return "/map/mapform.jsp";
 	}
   

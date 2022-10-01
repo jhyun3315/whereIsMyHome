@@ -5,13 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import map.dto.HomeDto;
 import map.dto.MapDto;
 
 public interface MapDao { 
-			
-	public ArrayList<String> getsido();
-	public ArrayList<String> getgugun(String sidoName);
-	public ArrayList<String> getdong(String gugunName);
+			 
+	public List<HomeDto> gethomelist(String dongCode, String year, String month);
 	
 	
 	 

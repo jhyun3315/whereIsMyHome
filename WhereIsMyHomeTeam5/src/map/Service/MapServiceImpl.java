@@ -20,19 +20,6 @@ public class MapServiceImpl implements MapService{
 		return mapservice;
 	}
 	 
-	@Override
-	public ArrayList<String> getsido() { 
-		return dao.getsido();
-	}
 
-	@Override
-	public ArrayList<String> getgugun(String sidoName) { 
-		return dao.getgugun(sidoName);
-	}
-
-	@Override
-	public ArrayList<String> getdong(String gugunName) { 
-		return dao.getdong(gugunName);
-	} 
 	
 }
