@@ -122,26 +122,139 @@
 ////////////////////////////////////////////아파트 거래 조회////////////////////////////////////////////
       
       document.querySelector("#list-btn").addEventListener("click", function () {
+    	let root = window.location.pathname; 
       	//api 호출을 통해서 가져오는 것이 아닌 서블릿에 요청해서 가져와야됨.
       	let dongName = document.getElementById("dong").value; 
-      	let year = parseInt(document.getElementById("year")).value;
-        let month = parseInt(document.getElementById("month")).value;
+      	let year = document.getElementById("year").value;
+        let month = document.getElementById("month").value;
         console.log(dongName);
         console.log(parseInt(year));
-        console.log(parseInt(month));
-        	
+        console.log(parseInt(month)); 
        
         	
-        let queryParams;
-        queryParams += "&" + "dongName" + "=" + dongName;
+        let queryParams ="";
+        queryParams += "dongName" + "=" + dongName;
         queryParams += "&" + "year" + "=" + year;
         queryParams += "&" + "month" + "=" + month;
         
       	console.log(queryParams);
-      	console.log(`/map?action=mapform/${queryParams}`);
+      	console.log(root+"?action=mapform&"+queryParams);
           
-      	fetch("/map?action=mapform/"+queryParams) 
+      	fetch(root+"?action=mapform&"+queryParams) 
             .then((response) => response.json())
-            .then((data) => makeList(data))
+            .then((data) => { 
+            	makeList(data);
+            })
        });
+      
+      
+      function makeList(data) { 
+      	console.log(data);
+      	  
+          document.querySelector("table").setAttribute("style", "display: ;");
+          let tbody = document.querySelector("#aptlist");  
+          initTable(); 
+          
+         for(var i=0;i<data.length;i++){
+        	 const djson = JSON.parse(data[i]);
+             console.log(djson);
+        	 let addressName = "";
+
+             let tr = document.createElement("tr");
+             tr.setAttribute("onclick","test(this)");
+             tr.setAttribute("value",addressName);
+
+             let nameTd = document.createElement("td");
+             nameTd.appendChild(document.createTextNode(djdon.apartmentName));
+             tr.appendChild(nameTd);
+
+             let floorTd = document.createElement("td");
+             floorTd.appendChild(document.createTextNode(djdon.floor));
+             tr.appendChild(floorTd);
+
+             let areaTd = document.createElement("td");
+             areaTd.appendChild(document.createTextNode(djdon.area));
+             tr.appendChild(areaTd);
+
+             let dongTd = document.createElement("td");
+             dongTd.appendChild(document.createTextNode(djdon.dongName));
+             tr.appendChild(dongTd);
+
+             let priceTd = document.createElement("td");
+             priceTd.appendChild(
+               document.createTextNode(djdon.dealAmount + "만원"));
+             priceTd.classList.add("text-end");
+             tr.appendChild(priceTd);
+
+             tbody.appendChild(tr);
+         }
+      }
+          
+ 	 
+          
+          function initTable() {
+              let tbody = document.querySelector("#aptlist");
+              let len = tbody.rows.length;
+              for (let i = len - 1; i >= 0; i--) {
+                tbody.deleteRow(i);
+              }
+            }
+          
+//          
+//          
+//          var map = new kakao.maps.Map(container, options); 
+//          var geocoder = new kakao.maps.services.Geocoder();    
+//          let lastCoords; 
+//          var bounds = new kakao.maps.LatLngBounds();
+//          
+//
+//          //주소 가져오기
+//          positions.forEach((position) => {
+//
+//              let addName = position["name"];
+//              // 주소로 좌표를 검색합니다
+//              geocoder.addressSearch(addName, function(result, status) {
+//
+//                  // 정상적으로 검색이 완료됐으면 
+//                  if (status === kakao.maps.services.Status.OK) {
+//
+//
+//                      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+//                      // locationInfo.push({
+//                      //     name : position["aptName"],
+//                      //     latlng : coords
+//                      // })
+//
+//                      // 결과값으로 받은 위치를 마커로 표시합니다
+//                      var marker = new kakao.maps.Marker({
+//                          map: map,
+//                          title : position["aptName"] + "\n" + position["name"],
+//                          position: coords
+//                      });
+//
+//                      // 인포윈도우로 장소에 대한 설명을 표시합니다
+//                      // var infowindow = new kakao.maps.InfoWindow({
+//                      //     content: `<div style="width:150px;text-align:center;padding:6px 0;">${position["name"]}</div>`
+//                      // });
+//                      // infowindow.open(map, marker);
+//                      
+//                      // lastCoords = {
+//                      //   lat : result[0].y,
+//                      //   lng : result[0].x
+//                      // };
+//
+//                      bounds.extend(coords);
+//                      map.setBounds(bounds);
+//                      
+//
+//                      // map.setCenter(lastCoords); 
+//                      // console.log(map.getCenter());
+//                    
+//                  } 
+//                  
+//              });
+//
+//          });
+//          
+           
       

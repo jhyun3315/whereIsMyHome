@@ -20,8 +20,11 @@ import javax.servlet.http.HttpSession;
 import com.sun.net.httpserver.HttpServer;
 
 import map.Service.MapService;
-import map.Service.MapServiceImpl; 
-import com.google.gson.Gson; 
+import map.Service.MapServiceImpl;
+import map.dto.DealDto;
+ 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder; 
 
  
 @WebServlet("/map")
@@ -41,9 +44,10 @@ public class MapController extends HttpServlet {
 		try {
 			if (action != null) {
 				if (action.equals("mapform")) {
-					url = mapform(request, response);
+					mapform(request, response);
+					return;
 				}else if(action.equals("mvlmap")) {
-					url = "redirect:/mapform.jsp";
+					url = "/map/mapform.jsp";
 				}else if(action.equals("xml")) {
 					
 				}
@@ -58,6 +62,7 @@ public class MapController extends HttpServlet {
 		}
 		if(url.startsWith("redirect")) {
 			url = url.substring(url.indexOf(":")+1);
+			System.out.println(url);
 			response.sendRedirect(url);
 		}else {
 			request.getRequestDispatcher(url).forward(request, response);
@@ -65,20 +70,23 @@ public class MapController extends HttpServlet {
 	}   
      
 	
-    private String mapform(HttpServletRequest request, HttpServletResponse response) throws IOException {   
+    private void mapform(HttpServletRequest request, HttpServletResponse response) throws IOException {   
     	String dongCode = request.getParameter("dongName");
     	String year = request.getParameter("year");
     	String month = request.getParameter("month");
-		   
-//		   String json = new Gson().toJson(lst);
-//		   System.out.println("보낼값 = " + lst); 
-//		   
-//			PrintWriter out = response.getWriter();
-//			
-//			out.print(lst);
-//			out.flush();
-//		    
-    	return "/map/mapform.jsp";
+    	System.out.println(dongCode+" "+year+" "+month); 
+    	response.setContentType("application/json;charset=utf-8");
+    	
+    	ArrayList<DealDto> lst = mapservice.gethomelist(dongCode, year, month);
+    	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    	String jsonStirng = gson.toJson(lst); 
+
+//		System.out.println("보낼값 = " + jsonStirng);  
+		
+		PrintWriter out = response.getWriter(); 
+		out.print(jsonStirng);
+		out.flush();
+		     
 	}
   
 	

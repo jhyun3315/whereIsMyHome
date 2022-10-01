@@ -97,7 +97,7 @@
             <p>아파트의 실거래가 정보를 제공합니다.</p>
             <br />
             <!--  onclick="checkLog()" 로그인시 조회할수 있도록 -->
-            <a class="text-decoration-none" href="map?action=mapform">
+            <a class="text-decoration-none" href="map?action=mvlmap">
               조회하러 가기.
               <i class="bi bi-arrow-right"></i>
             </a>
