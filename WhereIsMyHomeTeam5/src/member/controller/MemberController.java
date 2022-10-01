@@ -54,7 +54,7 @@ public class MemberController extends HttpServlet {
 			e.printStackTrace();
 			request.setAttribute("msg", e.getMessage());
 			request.setAttribute("exception", e);
-			request.setAttribute("comments", "그따구로 입력할거면 꺼져");
+			request.setAttribute("comments", "잘못된 접근");
 			url = "error/error.jsp";
 		}
 		
