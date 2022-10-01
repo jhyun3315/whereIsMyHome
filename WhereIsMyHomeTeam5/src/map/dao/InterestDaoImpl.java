@@ -1,0 +1,87 @@
+package map.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import map.dto.InterestDto;
+import util.DBUtil;
+
+public class InterestDaoImpl implements InterestDao {
+
+	private static InterestDao dao = new InterestDaoImpl();
+	private DBUtil dbUtil;
+	
+	public InterestDaoImpl() {
+		dbUtil = DBUtil.getInstance();
+	}
+	public static InterestDao getInterestDao() {
+		return dao;
+	}
+	
+	@Override
+	public void insertInterest(String userId, String sidoName, String gugunName, String dongName) throws Exception {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		con = dbUtil.getConnection();
+		StringBuilder sql = new StringBuilder();
+		sql.append("insert into interests \n");
+		sql.append("values (?,?,?,?)");
+		pstmt = con.prepareStatement(sql.toString());
+		int idx = 0;
+		pstmt.setString(++idx, userId);
+		pstmt.setString(++idx, sidoName);
+		pstmt.setString(++idx, gugunName);
+		pstmt.setString(++idx, dongName);
+		pstmt.executeUpdate();
+		
+		DBUtil.close(pstmt, con);
+	}
+
+	@Override
+	public List<InterestDto> selectInterest(String userId) throws Exception {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		InterestDto inter = null;
+		List<InterestDto> list = new ArrayList<>();
+		
+		con = dbUtil.getConnection();
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * \n");
+		sql.append("from interests \n");
+		sql.append("where id=?");		
+		pstmt = con.prepareStatement(sql.toString());
+		pstmt.setString(1, userId);
+		rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			inter = new InterestDto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+			list.add(inter);
+		}
+		
+		DBUtil.close(rs, pstmt, con);
+		
+		return list;
+	}
+
+	@Override
+	public void deleteInterest(String userId) throws Exception {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		con = dbUtil.getConnection();
+		StringBuilder sql = new StringBuilder();
+		sql.append("delete from interests \n");
+		sql.append("where id=?");
+		pstmt = con.prepareStatement(sql.toString());
+		pstmt.setString(1, userId);
+		pstmt.executeUpdate();
+		
+		DBUtil.close(pstmt, con);
+	}
+
+}
