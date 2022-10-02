@@ -60,13 +60,14 @@ public class MapController extends HttpServlet {
 					deallist(request, response);
 					return;
 				}else if(action.equals("mvinterest")) { 
-					url = getinstlist(request,response);
-							
-//							"/map/interestList.jsp"; 
+					url = getinstlist(request,response); 
 				}else if(action.equals("mvinterest")) { 
 					url = "/map/interestList.jsp"; 
 				}else if(action.equals("registinst")) { 
 					registinst(request,response);
+					return;
+				}else if(action.equals("rminst")) { 
+					removeinst(request,response);
 					return;
 				}
 			}else {
@@ -75,7 +76,8 @@ public class MapController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("msg", e.getMessage());
-			request.setAttribute("comment", "똑바로해라");
+			request.setAttribute("exception", e);
+			request.setAttribute("comments", "잘못된 접근");
 			url = "error/error.jsp";
 		}
 		if(url.startsWith("redirect")) {
@@ -88,9 +90,22 @@ public class MapController extends HttpServlet {
 	}   
      
 	
-    private String getinstlist(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    private void removeinst(HttpServletRequest request, HttpServletResponse response) throws Exception { 
+    	String userId = (String) request.getSession().getAttribute("userinfo");  
+    	String idx = request.getParameter("idx"); 
+    	int result = interestService.deleteInterest(userId, idx);
+    	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    	String jsonStirng = gson.toJson(result); 
+    	 
+    	PrintWriter out = response.getWriter(); 
+		out.print(jsonStirng);
+		out.flush();
+	}
+    	  
+
+	private String getinstlist(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	String userId = (String) request.getSession().getAttribute("userinfo"); 
-    	List<InterestDto> list =  interestService.selectInterest(userId);
+    	List<InterestDto> list =  interestService.selectInterest(userId); 
     	request.setAttribute("instlist", list);
     	
 		return "/map/interestList.jsp";
@@ -101,16 +116,13 @@ public class MapController extends HttpServlet {
     	
     	String sidoName = request.getParameter("sidoName");
     	String gugunName = request.getParameter("gugunName");
-    	String dongName = request.getParameter("dongName");
+    	String dongName = request.getParameter("dongName"); 
+    	String dongCode = request.getParameter("dongCode"); 
     	
-//    	System.out.println(userId +","+sidoName+","+gugunName+","+dongName);
-    	
-    	int result = interestService.insertInterest(userId, sidoName, gugunName, dongName);
+    	int result = interestService.insertInterest(userId, sidoName, gugunName, dongName, dongCode);
     	Gson gson = new GsonBuilder().setPrettyPrinting().create();
     	String jsonStirng = gson.toJson(result); 
-    	
-    	System.out.println("보낼값 = " + jsonStirng);  
-    	
+    	 
     	PrintWriter out = response.getWriter(); 
 		out.print(jsonStirng);
 		out.flush();
@@ -120,17 +132,14 @@ public class MapController extends HttpServlet {
 	private void deallist(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String aptCode = request.getParameter("aptCode"); 
     	String aptName = request.getParameter("aptName"); 
+    	
     	response.setContentType("application/json;charset=utf-8");
 
     	ArrayList<HomeDto> lst = mapservice.getdeallist(aptCode, aptName);
-
-    	System.out.println(lst.get(0));
-    	
+ 
     	Gson gson = new GsonBuilder().setPrettyPrinting().create();
     	String jsonStirng = gson.toJson(lst); 
-
-//		System.out.println("보낼값 = " + jsonStirng);  
-		
+ 
 		PrintWriter out = response.getWriter(); 
 		out.print(jsonStirng);
 		out.flush();
@@ -142,12 +151,10 @@ public class MapController extends HttpServlet {
     	String month = request.getParameter("month");
     	response.setContentType("application/json;charset=utf-8");
     	
-    	ArrayList<DealDto> lst = mapservice.gethomelist(dongCode, year, month);
-//    	System.out.println(lst.toString());
+    	ArrayList<DealDto> lst = mapservice.gethomelist(dongCode, year, month); 
     	Gson gson = new GsonBuilder().setPrettyPrinting().create();
     	String jsonStirng = gson.toJson(lst); 
-
-//		System.out.println("보낼값 = " + jsonStirng);  
+ 
 		
 		PrintWriter out = response.getWriter(); 
 		out.print(jsonStirng);

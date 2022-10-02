@@ -22,7 +22,7 @@ public class InterestDaoImpl implements InterestDao {
 	}
 	
 	@Override
-	public int insertInterest(String userId, String sidoName, String gugunName, String dongName) throws Exception {
+	public int insertInterest(String userId, String sidoName, String gugunName, String dongName, String dongCode) throws Exception {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -30,7 +30,7 @@ public class InterestDaoImpl implements InterestDao {
 		con = dbUtil.getConnection();
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into interests \n");
-		sql.append("values (?,0,?,?,?)");
+		sql.append("values (?,0,?,?,?,?)");
 		pstmt = con.prepareStatement(sql.toString());
 		
 		int idx = 0; 
@@ -38,6 +38,7 @@ public class InterestDaoImpl implements InterestDao {
 		pstmt.setString(++idx, sidoName);
 		pstmt.setString(++idx, gugunName);
 		pstmt.setString(++idx, dongName);
+		pstmt.setString(++idx, dongCode);
 		result = pstmt.executeUpdate();
 		
 		DBUtil.close(pstmt, con); 
@@ -55,7 +56,7 @@ public class InterestDaoImpl implements InterestDao {
 		
 		con = dbUtil.getConnection();
 		StringBuilder sql = new StringBuilder();
-		sql.append("select sido, gugun, dong \n");
+		sql.append("select idx, sido, gugun, dong \n");
 		sql.append("from interests \n");
 		sql.append("where id=?");		
 		pstmt = con.prepareStatement(sql.toString());
@@ -63,29 +64,32 @@ public class InterestDaoImpl implements InterestDao {
 		rs = pstmt.executeQuery();
 		
 		while (rs.next()) {
-			inter = new InterestDto(rs.getString(1), rs.getString(2), rs.getString(3));
+			inter = new InterestDto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
 			list.add(inter);
-		}
-		
+		} 
 		DBUtil.close(rs, pstmt, con);
 		
 		return list;
 	}
 
 	@Override
-	public void deleteInterest(String userId) throws Exception {
+	public int deleteInterest(String userId, String idx) throws Exception {
 		Connection con = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null; 
+		int result = 0;
 		
 		con = dbUtil.getConnection();
 		StringBuilder sql = new StringBuilder();
 		sql.append("delete from interests \n");
-		sql.append("where id=?");
+		sql.append("where id=? and idx=?");
 		pstmt = con.prepareStatement(sql.toString());
 		pstmt.setString(1, userId);
-		pstmt.executeUpdate();
+		pstmt.setString(2, idx);
+		result = pstmt.executeUpdate();
+		 
 		
-		DBUtil.close(pstmt, con);
+		DBUtil.close(pstmt, con); 
+		return result;
 	}
 
 }

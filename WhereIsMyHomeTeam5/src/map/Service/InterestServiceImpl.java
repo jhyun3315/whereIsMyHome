@@ -20,8 +20,8 @@ public class InterestServiceImpl implements InterestService {
 	}
 	
 	@Override
-	public int insertInterest(String userId, String sidoName, String gugunName, String dongName) throws Exception { 
-		return dao.insertInterest(userId, sidoName, gugunName, dongName);
+	public int insertInterest(String userId, String sidoName, String gugunName, String dongName, String dongCode) throws Exception { 
+		return dao.insertInterest(userId, sidoName, gugunName, dongName, dongCode);
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class InterestServiceImpl implements InterestService {
 	}
 
 	@Override
-	public void deleteInterest(String userId) throws Exception {
-		dao.deleteInterest(userId);
+	public int deleteInterest(String userId, String idx) throws Exception {
+		return dao.deleteInterest(userId, idx);
 	}
 
 }

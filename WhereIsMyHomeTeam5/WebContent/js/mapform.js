@@ -127,12 +127,15 @@
 	    	
 	    	let tmpdongName = document.getElementById("dong");
 	    	let dongName = tmpdongName.options[tmpdongName.selectedIndex].textContent;  
+	    	 
+	        let dongCode =tmpdongName.value; 
 	    	
 	    	
 	    	let queryParams ="";
 	         queryParams += "sidoName" + "=" + sidoName;
 	         queryParams += "&" + "gugunName" + "=" + gugunName;
 	         queryParams += "&" + "dongName" + "=" + dongName;
+	         queryParams += "&" + "dongCode" + "=" + dongCode;
 
 		    	console.log(queryParams);
 		    	
@@ -248,7 +251,7 @@
 			    	 // 주소-좌표 변환 객체를 생성합니다
 		      	  var geocoder = new kakao.maps.services.Geocoder();  
 		      		 
-		      	  for(var i =0;i<positions.length;i++){
+		      	  for(let i=0;i<positions.length;i++){
 		      		  var ele =  positions[i];  
 		      		   
 		      		  var add = ele.dongName+" "+ ele.roadName+" "+ele.roadNameBonbun;   
@@ -264,9 +267,11 @@
 		        	        position: coords, 
 		        	        
 		        	      });
+		        	      
 		        	      marker.id = ele.aptCode;
 		        	      marker.dongName = ele.dongName;
-			      	      
+//			      	      console.log(marker.id +","+ marker.dongName);
+		        	      
 		        	      // 인포윈도우로 장소에 대한 설명을 표시합니다
 		        	      var infowindow = new kakao.maps.InfoWindow({
 		        	        content: `<div id="`+ele.no+`">
@@ -277,12 +282,11 @@
 		        	          </ul>
 		        	          </div>`,
 		        	      });
-		
-			      	      map.setCenter(coords);
+
+			      	      map.setCenter(coords); 
 		        	      kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 		        	      kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow)); 
 		        	      kakao.maps.event.addListener(marker, 'click', makeClickListener(marker)); 
-		        	      
 			      	    }
 			      	    
 				      	// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -298,20 +302,20 @@
 				      	          infowindow.close();
 				      	      };
 				      	  }
-				      	  
-				      var selectedMarker;
+				      	   
 				      
-				      function makeClickListener(marker) {
-				    	  console.log(marker.id); 
-				    	  return function() {
-				    		  let root = window.location.pathname; 
-				    		  console.log(root+"?action=deallist&aptCode="+marker.id+"&aptName=" +ele.apartmentName);
-					      	
-				    		  fetch(root+"?action=deallist&aptCode="+marker.id+"&aptName=" +ele.apartmentName) 
-					            .then((response) => response.json())
-					            .then((data) =>  detaillist(data,marker.dongName)) 
-					        }; 
-				      };
+					      function makeClickListener(marker) {
+//					    	  console.log(marker.id+","+marker.dongName+","+ele.apartmentName); 
+					    	  
+					    	  return function() {
+					    		  let root = window.location.pathname; 
+					    		  console.log(root+"?action=deallist&aptCode="+marker.id+"&aptName=" +ele.apartmentName);
+						      	
+					    		  fetch(root+"?action=deallist&aptCode="+marker.id+"&aptName=" +ele.apartmentName) 
+						            .then((response) => response.json())
+						            .then((data) =>  detaillist(data,marker.dongName)) 
+						        }; 
+					      };
 			      
 			      	  });   
 		      	  

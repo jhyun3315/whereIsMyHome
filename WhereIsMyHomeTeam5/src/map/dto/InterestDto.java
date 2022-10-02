@@ -1,19 +1,31 @@
 package map.dto;
 
 public class InterestDto { 
+	private String idx;
 	private String userId;
 	private String sidoName;
 	private String gugunName;
 	private String dongName;
 
-	public InterestDto(String sidoName, String gugunName, String dongName) {
+	public InterestDto(String idx, String sidoName, String gugunName, String dongName) {
 		super();  
+		this.idx = idx;
 		this.sidoName = sidoName;
 		this.gugunName = gugunName;
 		this.dongName = dongName;
 	}
 
  
+	public String getIdx() {
+		return idx;
+	}
+
+
+	public void setIdx(String idx) {
+		this.idx = idx;
+	}
+
+
 	public String getUserId() {
 		return userId;
 	}
