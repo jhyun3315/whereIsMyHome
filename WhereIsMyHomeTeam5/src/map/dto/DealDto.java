@@ -2,6 +2,10 @@ package map.dto;
 
 public class DealDto {
 	private String apartmentName;
+	private String dongName;
+	private String dongCode;
+	private String roadName;
+	private String roadNameBonbun;
 	private String lng;
 	private String lat;
 	private String no;
@@ -14,10 +18,14 @@ public class DealDto {
 	private String aptCode; 
 	
 	
-	public DealDto(String apartmentName,String lng, String lat, String no, String dealAmount, String dealYear, String dealMonth,
+	public DealDto(String apartmentName, String dongName, String dongCode, String roadName, String roadNameBonbun,String lng, String lat, String no, String dealAmount, String dealYear, String dealMonth,
 			String dealDat, String area, String floor, String aptCode) {
 		super();
 		this.apartmentName = apartmentName;
+		this.dongName = dongName; 
+		this.dongCode = dongCode;
+		this.roadName = roadName;
+		this.roadNameBonbun = roadNameBonbun;
 		this.lng = lng;
 		this.lat = lat;
 		this.no = no;
@@ -30,6 +38,49 @@ public class DealDto {
 		this.aptCode = aptCode;
 	}
  
+	public String getRoadName() {
+		return roadName;
+	}
+
+
+
+	public void setRoadName(String roadName) {
+		this.roadName = roadName;
+	}
+
+
+
+	public String getRoadNameBonbun() {
+		return roadNameBonbun;
+	}
+
+
+
+	public void setRoadNameBonbun(String roadNameBonbun) {
+		this.roadNameBonbun = roadNameBonbun;
+	}
+
+
+
+	public String getDongCode() {
+		return dongCode;
+	} 
+
+
+	public void setDongCode(String dongCode) {
+		this.dongCode = dongCode;
+	}
+
+
+
+	public String getDongName() {
+		return dongName;
+	}
+
+	public void setDongName(String dongName) {
+		this.dongName = dongName;
+	}
+
 	public String getDealMonth() {
 		return dealMonth;
 	}

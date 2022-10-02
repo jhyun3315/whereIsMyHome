@@ -74,10 +74,10 @@ public class MapController extends HttpServlet {
     	String dongCode = request.getParameter("dongName");
     	String year = request.getParameter("year");
     	String month = request.getParameter("month");
-    	System.out.println(dongCode+" "+year+" "+month); 
     	response.setContentType("application/json;charset=utf-8");
     	
     	ArrayList<DealDto> lst = mapservice.gethomelist(dongCode, year, month);
+//    	System.out.println(lst.toString());
     	Gson gson = new GsonBuilder().setPrettyPrinting().create();
     	String jsonStirng = gson.toJson(lst); 
 
