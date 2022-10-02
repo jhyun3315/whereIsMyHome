@@ -1,19 +1,19 @@
 package map.dto;
 
-public class InterestDto {
+public class InterestDto { 
 	private String userId;
 	private String sidoName;
 	private String gugunName;
 	private String dongName;
 
-	public InterestDto(String userId, String sidoName, String gugunName, String dongName) {
-		super();
-		this.userId = userId;
+	public InterestDto(String sidoName, String gugunName, String dongName) {
+		super();  
 		this.sidoName = sidoName;
 		this.gugunName = gugunName;
 		this.dongName = dongName;
 	}
 
+ 
 	public String getUserId() {
 		return userId;
 	}

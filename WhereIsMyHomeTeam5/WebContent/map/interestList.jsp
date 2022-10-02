@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <c:set var="root" value="${pageContext.request.contextPath}" ></c:set>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,35 +59,7 @@
 			<div class="main-title">
 				<p>관심 지역</p>
 			</div>
-		</div> 
-		  <div class="apt-info-graph">
-		  <div class="apt-info-section" style="display: flex; justify-content: center;">
-			<div class="row col-md-12 justify-content-center mb-2" style="width: 80%;">
-				<div class="form-group col-md-2"> 
-					<select class="form-select bg-secondary text-light" id="sido">
-						<option value="">시도선택</option> 
-					</select>
-				</div>					
-				<div class="form-group col-md-2">
-					<select class="form-select bg-secondary text-light" id="gugun">
-						<option value="">구군선택</option></option> 
-					</select>
-				</div>
-				<div class="form-group col-md-2">
-					<select class="form-select bg-secondary text-light" id="dong">
-						<option value="">동선택</option>
-					</select>
-				</div> 
-				<div class="form-group col-md-2"
-					style="margin-bottom: 20px; text-align: center;">
-					<button type="button" id="list-btn" class="btn btn-outline-primary">
-						관심지역 등록하기</button>
-				</div> 
-			</div>
-		</div>
-		  
-		  </div>
-		
+		</div>  
 		<div class="apt-info-graph">
 			<div style="width: 80%;">
 				<table class="table table-hover text-center" id="apt-table-graph" style="">
@@ -95,12 +68,14 @@
 						<th>구/군</th>
 						<th>동</th>
 					</tr>
-					<tbody id="aptlist">
-						<tr>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-						</tr>
+					<tbody id="aptlist"> 
+						<c:forEach var="obj" items="${instlist}">
+								<tr class ="inst_tr_for_search">  
+									<td><c:out value="${obj.sidoName}"></c:out> </td>
+									<td><c:out value="${obj.gugunName}"></c:out> </td>
+									<td><c:out value="${obj.dongName}"></c:out> </td>
+								</tr> 
+						</c:forEach> 
 					</tbody>
 				</table>
 			</div>

@@ -114,7 +114,36 @@
       
       
       
-      
+////////////////////////////////////////////관심지역 등록////////////////////////////////////////////  
+
+	  document.querySelector("#regist-inst-btn").addEventListener("click", function () {
+	    	let root = window.location.pathname; 
+	    	
+	    	let tmpsidoName = document.getElementById("sido");
+	    	let sidoName= tmpsidoName.options[tmpsidoName.selectedIndex].textContent; 
+	    	
+	    	let tmpgugunName = document.getElementById("gugun");
+	    	let gugunName = tmpgugunName.options[tmpgugunName.selectedIndex].textContent;  
+	    	
+	    	let tmpdongName = document.getElementById("dong");
+	    	let dongName = tmpdongName.options[tmpdongName.selectedIndex].textContent;  
+	    	
+	    	
+	    	let queryParams ="";
+	         queryParams += "sidoName" + "=" + sidoName;
+	         queryParams += "&" + "gugunName" + "=" + gugunName;
+	         queryParams += "&" + "dongName" + "=" + dongName;
+
+		    	console.log(queryParams);
+		    	
+			  fetch(root+"?action=registinst&"+queryParams)  
+			   .then((response) => response.text())
+			   .then((data) => { 
+            	if(data>0){
+            		alert("성공적으로 등록 됐습니다.");
+            	}
+            })
+		  });
       
       
       
@@ -122,9 +151,8 @@
 ////////////////////////////////////////////아파트 거래 조회////////////////////////////////////////////
       
 
-		var positions = new Array() ; 
-      
-      
+		  
+	var positions = new Array(); 
       document.querySelector("#list-btn").addEventListener("click", function () {
     	let root = window.location.pathname; 
       	//api 호출을 통해서 가져오는 것이 아닌 서블릿에 요청해서 가져와야됨.

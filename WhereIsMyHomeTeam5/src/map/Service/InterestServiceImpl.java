@@ -20,9 +20,8 @@ public class InterestServiceImpl implements InterestService {
 	}
 	
 	@Override
-	public void insertInterest(String userId, String sidoName, String gugunName, String dongName)
-			throws Exception {
-		dao.insertInterest(userId, sidoName, gugunName, dongName);
+	public int insertInterest(String userId, String sidoName, String gugunName, String dongName) throws Exception { 
+		return dao.insertInterest(userId, sidoName, gugunName, dongName);
 	}
 
 	@Override

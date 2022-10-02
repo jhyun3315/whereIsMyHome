@@ -47,6 +47,11 @@
 					<button type="button" id="list-btn" class="btn btn-outline-primary">
 						아파트 매매정보 가져오기</button>
 				</div> 
+				 <c:if test="${!empty userinfo}">
+					<div class="form-group col-md-2" style="margin-bottom: 20px; text-align: center;">
+						<button type="button" id="regist-inst-btn" class="btn btn-outline-primary">관심지역 등록하기</button>
+					</div> 
+				</c:if>
 			</div>
 		</div> 
 		<div class="apt-info-map">
@@ -59,7 +64,7 @@
 		<div class="apt-info-graph">
 			<div style="width: 80%;">
 				<table class="table table-hover text-center" id="apt-table-graph"
-					style="display: none" onclick="test()">
+					style="display: none">
 					<tr>
 						<th>아파트이름</th>
 						<th>층</th>
@@ -67,9 +72,7 @@
 						<th>법정동</th>
 						<th>거래금액</th>
 						<th></th>
-					</tr>
-					<tbody id="aptlist">
-					</tbody>
+					</tr> 
 				</table>
 			</div>
 		</div>

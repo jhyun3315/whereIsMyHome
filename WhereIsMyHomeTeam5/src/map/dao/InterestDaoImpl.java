@@ -22,23 +22,27 @@ public class InterestDaoImpl implements InterestDao {
 	}
 	
 	@Override
-	public void insertInterest(String userId, String sidoName, String gugunName, String dongName) throws Exception {
+	public int insertInterest(String userId, String sidoName, String gugunName, String dongName) throws Exception {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		int result = 0;
 		
 		con = dbUtil.getConnection();
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into interests \n");
-		sql.append("values (?,?,?,?)");
+		sql.append("values (?,0,?,?,?)");
 		pstmt = con.prepareStatement(sql.toString());
-		int idx = 0;
+		
+		int idx = 0; 
 		pstmt.setString(++idx, userId);
 		pstmt.setString(++idx, sidoName);
 		pstmt.setString(++idx, gugunName);
 		pstmt.setString(++idx, dongName);
-		pstmt.executeUpdate();
+		result = pstmt.executeUpdate();
 		
-		DBUtil.close(pstmt, con);
+		DBUtil.close(pstmt, con); 
+		
+		return result;
 	}
 
 	@Override
@@ -51,7 +55,7 @@ public class InterestDaoImpl implements InterestDao {
 		
 		con = dbUtil.getConnection();
 		StringBuilder sql = new StringBuilder();
-		sql.append("select * \n");
+		sql.append("select sido, gugun, dong \n");
 		sql.append("from interests \n");
 		sql.append("where id=?");		
 		pstmt = con.prepareStatement(sql.toString());
@@ -59,7 +63,7 @@ public class InterestDaoImpl implements InterestDao {
 		rs = pstmt.executeQuery();
 		
 		while (rs.next()) {
-			inter = new InterestDto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+			inter = new InterestDto(rs.getString(1), rs.getString(2), rs.getString(3));
 			list.add(inter);
 		}
 		

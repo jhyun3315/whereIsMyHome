@@ -19,10 +19,13 @@ import javax.servlet.http.HttpSession;
  
 import com.sun.net.httpserver.HttpServer;
 
+import map.Service.InterestService;
+import map.Service.InterestServiceImpl;
 import map.Service.MapService;
 import map.Service.MapServiceImpl;
 import map.dto.DealDto;
 import map.dto.HomeDto;
+import map.dto.InterestDto;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder; 
@@ -32,9 +35,11 @@ import com.google.gson.GsonBuilder;
 public class MapController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MapService mapservice;
+	private InterestService interestService;
 	
 	public void init() {
 		mapservice = MapServiceImpl.getMapService();
+		interestService = InterestServiceImpl.getInterestService();
 	}
 	
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +52,7 @@ public class MapController extends HttpServlet {
 				if (action.equals("mapform")) {
 					mapform(request, response);
 					return;
-				}else if(action.equals("mvlmap")) {
+				}else if(action.equals("mvlmap")) { 
 					url = "/map/mapform.jsp";
 				}else if(action.equals("xml")) {
 					
@@ -55,9 +60,13 @@ public class MapController extends HttpServlet {
 					deallist(request, response);
 					return;
 				}else if(action.equals("mvinterest")) { 
+					url = getinstlist(request,response);
+							
+//							"/map/interestList.jsp"; 
+				}else if(action.equals("mvinterest")) { 
 					url = "/map/interestList.jsp"; 
-				}else if(action.equals("interest")) { 
-					interestlist(request,response);
+				}else if(action.equals("registinst")) { 
+					registinst(request,response);
 					return;
 				}
 			}else {
@@ -79,10 +88,34 @@ public class MapController extends HttpServlet {
 	}   
      
 	
-    private void interestlist(HttpServletRequest request, HttpServletResponse response) {
-		
-		
+    private String getinstlist(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String userId = (String) request.getSession().getAttribute("userinfo"); 
+    	List<InterestDto> list =  interestService.selectInterest(userId);
+    	request.setAttribute("instlist", list);
+    	
+		return "/map/interestList.jsp";
 	}
+
+	private void registinst(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String userId = (String) request.getSession().getAttribute("userinfo"); 
+    	
+    	String sidoName = request.getParameter("sidoName");
+    	String gugunName = request.getParameter("gugunName");
+    	String dongName = request.getParameter("dongName");
+    	
+//    	System.out.println(userId +","+sidoName+","+gugunName+","+dongName);
+    	
+    	int result = interestService.insertInterest(userId, sidoName, gugunName, dongName);
+    	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    	String jsonStirng = gson.toJson(result); 
+    	
+    	System.out.println("보낼값 = " + jsonStirng);  
+    	
+    	PrintWriter out = response.getWriter(); 
+		out.print(jsonStirng);
+		out.flush();
+	}
+ 
 
 	private void deallist(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String aptCode = request.getParameter("aptCode"); 
@@ -96,7 +129,7 @@ public class MapController extends HttpServlet {
     	Gson gson = new GsonBuilder().setPrettyPrinting().create();
     	String jsonStirng = gson.toJson(lst); 
 
-		System.out.println("보낼값 = " + jsonStirng);  
+//		System.out.println("보낼값 = " + jsonStirng);  
 		
 		PrintWriter out = response.getWriter(); 
 		out.print(jsonStirng);
