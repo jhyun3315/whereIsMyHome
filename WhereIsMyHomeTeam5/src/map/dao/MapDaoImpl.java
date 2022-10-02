@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList; 
-import java.util.List;
+import java.util.ArrayList;  
 
 import map.dto.DealDto;
 import map.dto.HomeDto;
-import map.dto.MapDto;
 import util.DBUtil;
 
 public class MapDaoImpl implements MapDao{
@@ -55,6 +53,38 @@ public class MapDaoImpl implements MapDao{
 		return  lst;
 	}
 
+	@Override
+	public ArrayList<HomeDto> getdeallist(String aptCode, String aptName) {
+
+		ArrayList<HomeDto> lst = new ArrayList<>();
+		
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		System.out.println(aptCode+","+aptName);
+				
+		try {
+			conn = dbutil.getConnection();
+			String sql="SELECT dealAmount, dealYear, dealMonth, dealDay, area, floor FROM housedeal where aptCode = ? limit 10;";
+			st = conn.prepareStatement(sql);
+			st.setString(1, aptCode); 
+			rs = st.executeQuery(); 
+			
+			while(rs.next()) {
+				lst.add(new HomeDto(rs.getString(1), aptName, rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));				
+			}
+			 
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}  
+		
+		dbutil.close(conn, st, rs);
+		return  lst;
+	}
+
+	
 	  
 
 }

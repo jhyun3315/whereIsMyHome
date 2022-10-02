@@ -67,8 +67,10 @@
 						<th>면적</th>
 						<th>법정동</th>
 						<th>거래금액</th>
+						<th></th>
 					</tr>
-					<tbody id="aptlist"></tbody>
+					<tbody id="aptlist">
+					</tbody>
 				</table>
 			</div>
 		</div>

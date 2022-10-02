@@ -148,9 +148,7 @@
       
       function makeList(data) {   
     	  var tmpArr =[data.length]; 
-    	  if(tmpArr != 0){
-      	
-      	  
+    	  if(tmpArr != 0){ 
 	          document.querySelector("table").setAttribute("style", "display: ;");
 	          let tbody = document.querySelector("#aptlist");  
 	          initTable();
@@ -165,6 +163,11 @@
 		     		obj.lat =  djson.lat;
 		     		obj.lng = djson.lng; 
 		     		obj.dongCode = djson.dongCode;
+		     		obj.aptCode = djson.aptCode;
+		     		obj.floor= djson.floor;
+		     		obj.area = djson.area;
+		     		obj.dealAmount = djson.dealAmount;
+		     		
 		     		
 		     		positions.push(obj);
 		        	 
@@ -218,10 +221,9 @@
 		      	  var geocoder = new kakao.maps.services.Geocoder();  
 		      		 
 		      	  for(var i =0;i<positions.length;i++){
-		      		  var ele =  positions[i]; 
+		      		  var ele =  positions[i];  
 		      		   
-		      		  var add = ele.dongName+" "+ ele.roadName+" "+ele.roadNameBonbun;  
-		      		   
+		      		  var add = ele.dongName+" "+ ele.roadName+" "+ele.roadNameBonbun;   
 		      		  
 		          	  // 주소로 좌표를 검색합니다
 			      	  geocoder.addressSearch(add, function (result, status) {
@@ -231,25 +233,28 @@
 			      	      // 결과값으로 받은 위치를 마커로 표시합니다
 		        	      var marker = new kakao.maps.Marker({
 		        	        map: map,
-		        	        position: coords,
+		        	        position: coords, 
+		        	        
 		        	      });
-		
+		        	      marker.id = ele.aptCode;
+		        	      marker.dongName = ele.dongName;
 			      	      
 		        	      // 인포윈도우로 장소에 대한 설명을 표시합니다
 		        	      var infowindow = new kakao.maps.InfoWindow({
-		        	        content: `<div>
+		        	        content: `<div id="`+ele.no+`">
 		        	          <h3 style="text-align: center;">아파트 정보</h3>
 		        	          <ul>
 		        	            <li>주소 : `+result[0].address.address_name+`</li>
-		        	        	<li>아파트 이름 : `+result[0].road_address.building_name+`</li> 
+		        	        	<li>아파트 이름 : `+result[0].road_address.building_name+`</li>  
 		        	          </ul>
 		        	          </div>`,
 		        	      });
 		
 			      	      map.setCenter(coords);
 		        	      kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-		        	      kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-		        	     
+		        	      kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow)); 
+		        	      kakao.maps.event.addListener(marker, 'click', makeClickListener(marker)); 
+		        	      
 			      	    }
 			      	    
 				      	// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -265,9 +270,23 @@
 				      	          infowindow.close();
 				      	      };
 				      	  }
-				      	   
-			      	  
+				      	  
+				      var selectedMarker;
+				      
+				      function makeClickListener(marker) {
+				    	  console.log(marker.id); 
+				    	  return function() {
+				    		  let root = window.location.pathname; 
+				    		  console.log(root+"?action=deallist&aptCode="+marker.id+"&aptName=" +ele.apartmentName);
+					      	
+				    		  fetch(root+"?action=deallist&aptCode="+marker.id+"&aptName=" +ele.apartmentName) 
+					            .then((response) => response.json())
+					            .then((data) =>  detaillist(data,marker.dongName)) 
+					        }; 
+				      };
+			      
 			      	  });   
+		      	  
 		      	  } 
 		
 			    	// 지도 타입 변경 컨트롤을 생성한다
@@ -298,57 +317,45 @@
  
 //          
            
-          function test(index) {
-        	  //let temp = document.getElementById("apt-table-graph").rows[0];
-        	  let address = index.getAttribute("value"); // geocoder로 변환할 주소.
-        	  console.log(address);
-
-        	  let aptName = index.cells[0].innerText;
-        	  let floor = index.cells[1].innerText;
-        	  let area = index.cells[2].innerText;
-        	  let money = index.cells[4].innerText;
-
-        	  var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-        	    mapOption = {
-        	      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        	      level: 2, // 지도의 확대 레벨
-        	    };
-
-        	  // 지도를 생성합니다
-        	  var map = new kakao.maps.Map(mapContainer, mapOption);
-
-        	  // 주소-좌표 변환 객체를 생성합니다
-        	  var geocoder = new kakao.maps.services.Geocoder();
-
-        	  // 주소로 좌표를 검색합니다
-        	  geocoder.addressSearch(address, function (result, status) {
-        	    // 정상적으로 검색이 완료됐으면
-        	    if (status === kakao.maps.services.Status.OK) {
-        	      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        	      // 결과값으로 받은 위치를 마커로 표시합니다
-        	      var marker = new kakao.maps.Marker({
-        	        map: map,
-        	        position: coords,
-        	      });
-
-        	      // 인포윈도우로 장소에 대한 설명을 표시합니다
-        	      var infowindow = new kakao.maps.InfoWindow({
-        	        content: `<div style="display: inline-block; padding:6px 0;">
-        	          <h3 style="text-align: center;">아파트 정보</h3>
-        	          <ul>
-        	          <li>주소 : ${address}</li>
-        	          <li>아파트 이름 : ${aptName}</li>
-        	          <li>층 : ${floor}</li>
-        	          <li>면적 : ${area}㎡</li>
-        	          <li>거래금액 : ${money}</li>
-        	          </ul>
-        	          </div>`,
-        	      });
-        	      infowindow.open(map, marker);
-
-        	      // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        	      map.setCenter(coords);
-        	    }
-        	  });
-        	}
+         function detaillist(data, dongName){ 
+       	  var tmpArr =[data.length];  
+	          document.querySelector("table").setAttribute("style", "display: ;");
+	          let tbody = document.querySelector("#aptlist");  
+	          initTable();
+	   
+		         for(var i=0;i<data.length;i++){
+		        	var djson = JSON.parse(JSON.stringify(data[i]));  
+		        	 
+		        	 let addressName = djson.roadName+" "+djson.roadNameBonbun;
+		
+		             let tr = document.createElement("tr"); 
+		
+		             let nameTd = document.createElement("td");
+		             nameTd.appendChild(document.createTextNode(djson.aptName));
+		             tr.appendChild(nameTd);
+		
+		             let floorTd = document.createElement("td");
+		             floorTd.appendChild(document.createTextNode(djson.floor));
+		             tr.appendChild(floorTd);
+		
+		             let areaTd = document.createElement("td");
+		             areaTd.appendChild(document.createTextNode(djson.area));
+		             tr.appendChild(areaTd);
+		
+		             let dongTd = document.createElement("td");
+		             dongTd.appendChild(document.createTextNode(dongName));
+		             tr.appendChild(dongTd);
+		
+		             let priceTd = document.createElement("td");
+		             priceTd.appendChild(document.createTextNode(djson.dealAmount + "만원"));
+		             tr.appendChild(priceTd);
+		             
+		             let dateTd = document.createElement("td");
+		             dateTd.appendChild(document.createTextNode(djson.dealYear+"."+djson.DealMonth+"."+djson.DealDay));
+		             priceTd.classList.add("text-end");
+		             tr.appendChild(dateTd); 
+		             
+		              
+		             tbody.appendChild(tr);
+		         }   
+         	} 

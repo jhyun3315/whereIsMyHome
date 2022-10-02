@@ -22,7 +22,8 @@ import com.sun.net.httpserver.HttpServer;
 import map.Service.MapService;
 import map.Service.MapServiceImpl;
 import map.dto.DealDto;
- 
+import map.dto.HomeDto;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder; 
 
@@ -50,6 +51,9 @@ public class MapController extends HttpServlet {
 					url = "/map/mapform.jsp";
 				}else if(action.equals("xml")) {
 					
+				}else if(action.equals("deallist")) {
+					deallist(request, response);
+					return;
 				}
 			}else {
 				url = "index.jsp";
@@ -70,7 +74,26 @@ public class MapController extends HttpServlet {
 	}   
      
 	
-    private void mapform(HttpServletRequest request, HttpServletResponse response) throws IOException {   
+    private void deallist(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	String aptCode = request.getParameter("aptCode"); 
+    	String aptName = request.getParameter("aptName"); 
+    	response.setContentType("application/json;charset=utf-8");
+
+    	ArrayList<HomeDto> lst = mapservice.getdeallist(aptCode, aptName);
+
+    	System.out.println(lst.get(0));
+    	
+    	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    	String jsonStirng = gson.toJson(lst); 
+
+		System.out.println("보낼값 = " + jsonStirng);  
+		
+		PrintWriter out = response.getWriter(); 
+		out.print(jsonStirng);
+		out.flush();
+	}
+
+	private void mapform(HttpServletRequest request, HttpServletResponse response) throws IOException {   
     	String dongCode = request.getParameter("dongName");
     	String year = request.getParameter("year");
     	String month = request.getParameter("month");
