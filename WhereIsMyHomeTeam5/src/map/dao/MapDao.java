@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import map.dto.DealDto;
 import map.dto.HomeDto;
-import map.dto.MapDto;
 
 public interface MapDao { 
 			 

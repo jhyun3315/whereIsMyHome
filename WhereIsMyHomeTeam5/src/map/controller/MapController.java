@@ -54,6 +54,11 @@ public class MapController extends HttpServlet {
 				}else if(action.equals("deallist")) {
 					deallist(request, response);
 					return;
+				}else if(action.equals("mvinterest")) { 
+					url = "/map/interestList.jsp"; 
+				}else if(action.equals("interest")) { 
+					interestlist(request,response);
+					return;
 				}
 			}else {
 				url = "index.jsp";
@@ -74,7 +79,12 @@ public class MapController extends HttpServlet {
 	}   
      
 	
-    private void deallist(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void interestlist(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+	}
+
+	private void deallist(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String aptCode = request.getParameter("aptCode"); 
     	String aptName = request.getParameter("aptName"); 
     	response.setContentType("application/json;charset=utf-8");

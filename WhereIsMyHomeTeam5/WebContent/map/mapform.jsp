@@ -48,8 +48,7 @@
 						아파트 매매정보 가져오기</button>
 				</div> 
 			</div>
-		</div>
-		</div>
+		</div> 
 		<div class="apt-info-map">
 			<div id="map" style="width: 80%; height: 500px"></div>
 			<script type="text/javascript"

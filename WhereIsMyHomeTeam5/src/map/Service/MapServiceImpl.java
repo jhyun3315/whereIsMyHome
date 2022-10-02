@@ -8,7 +8,6 @@ import map.dao.MapDao;
 import map.dao.MapDaoImpl;
 import map.dto.DealDto;
 import map.dto.HomeDto;
-import map.dto.MapDto;
 
 public class MapServiceImpl implements MapService{
 	private static MapService mapservice = new MapServiceImpl();

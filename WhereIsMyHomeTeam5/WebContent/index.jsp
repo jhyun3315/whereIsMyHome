@@ -102,22 +102,22 @@
               <i class="bi bi-arrow-right"></i>
             </a>
           </div>
-
-          <div class="col-sm-4 sel-page">
-            <div
-              class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
-            >
-              <i class="bi bi-collection"></i>
-            </div>
-            <h2 class="h4 fw-bolder">관심지역</h2>
-            <p>COMMING SOON!</p>
-            <br />
-            <a class="text-decoration-none" href="#!">
-              조회하러 가기.
-              <i class="bi bi-arrow-right"></i>
-            </a>
-          </div>
-
+	 	<c:if test="${!empty userinfo}">
+	          <div class="col-sm-4 sel-page">
+	            <div
+	              class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
+	            >
+	              <i class="bi bi-collection"></i>
+	            </div>
+	            <h2 class="h4 fw-bolder">관심지역</h2>
+	            <p>COMMING SOON!</p>
+	            <br />
+	            <a class="text-decoration-none" href="map?action=mvinterest&userId="+${mem.userId}>
+	              조회하러 가기.
+	              <i class="bi bi-arrow-right"></i>
+	            </a>
+	          </div> 
+	  </c:if>
           <div class="col-sm-4 sel-page">
             <div
               class="feature bg-primary bg-gradient text-white rounded-3 mb-3"
