@@ -35,12 +35,12 @@
 
 <body>
     <div class="login-box">
-        <h2>회원정보 수정</h2>
+    	<h2>회원정보 수정</h2>
         <form action="user" method="GET" id="modiform">
         	<input type="hidden" name="action" value="modifymember">
             <div class="user-box">
                 <input class="info" id="userId" type="text" name="userId" value="${userinfo}" readonly>
-                <label>아이디</label>
+                <label>아이디</label>
             </div>
             <div class="user-box">
                 <input class="info" id="userPw" type="password" name="userPw" value="">
@@ -59,7 +59,7 @@
                 <label>전화번호</label>
             </div>
             <a id="modifybutton" href="#">확인</a>
-            <a href="user?action=userinfo">취소</a>
+            <a href="user?action=userinfo">취소</a>
         </form>
     </div>
     <!-- Header-->

@@ -16,31 +16,26 @@
         <form>
             <div class="user-box">
                 <input class="info" id="userId" type="text" name="userId" value="${mem.userId}" readonly>
-                <!-- <div class="info" id="info-id"></div> -->
                 <label>아이디</label>
             </div>
             <div class="user-box">
                 <input class="info" id="userPw" type="password" name="userPw" value="${mem.userPw}" readonly>
-                <!-- <div class="info" id="info-pw"></div> -->
                 <label>비밀번호</label>
             </div>
             <div class="user-box">
                 <input class="info" id="userName" type="text" name="userName" value="${mem.userName}" readonly>
-                <!-- <div class="info" id="info-nm"></div> -->
                 <label>이름</label>
             </div>
             <div class="user-box">
                 <input class="info" id="userEmail" type="text" name="userEmail" value="${mem.userEmail}" readonly>
-                <!-- <div class="info" id="info-e"></div> -->
                 <label>email</label>
             </div>
             <div class="user-box">
                 <input class="info" id="userPhoneNum" type="text" name="userPhoneNum" value="${mem.userPhoneNum}" readonly>
-                <!-- <div class="info" id="info-ph"></div> -->
                 <label>전화번호</label>
             </div>
-            <a href="user?action=modifyform">수정</a>
-            <a href="user?action=deletemember" >삭제</a> <!-- onclick="clearUser()" -->
+            <a href="user?action=modifyform">수정</a>
+            <a href="user?action=deletemember" >삭제</a>
         </form>
     </div>
     <!-- Header-->

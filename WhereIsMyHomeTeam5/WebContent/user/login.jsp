@@ -14,7 +14,7 @@
     		var logincheck = '${logincheck}';
     		if (logincheck === "false") {
     			console.log(logincheck);
-    			alert("아이디 또는 비밀번호를 잘못입력하였습니다. 입력하신 내용을 확인해주세요");
+    			alert("아이디 또는 비밀번호를 잘못입력하였습니다.\n입력하신 내용을 확인해주세요.");
     			
     		}
     	}

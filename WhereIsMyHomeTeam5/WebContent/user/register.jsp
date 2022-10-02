@@ -15,17 +15,29 @@
 	                alert("아이디를 입력하세요.");
 	                document.getElementById("userId").focus();
 	                return;            
+	            } else if(document.getElementById("userPw").value.length <= 3) {
+	                alert("아이디를 4자 이상 입력해주세요.");
+	                document.getElementById("userId").focus();
+	                return;
 	            } else if(document.getElementById("userPw").value.length <= 0) {
-	                alert("비번은 4자 이상");
+	                alert("비밀번호를 입력하세요.");
+	                document.getElementById("userPw").focus();
+	                return;
+	            } else if(document.getElementById("userPw").value.length <= 5) {
+	                alert("비밀번호를 6자 이상 입력해주세요.");
+	                document.getElementById("usePw").focus();
 	                return;
 	            } else if(document.getElementById("userName").value.length <= 0) {
 	                alert("이름을 입력하세요.");
+	                document.getElementById("userName").focus();
 	                return;
 	            } else if(document.getElementById("userEmail").value.length <= 0) {
 	                alert("이메일을 입력하세요.");
+	                document.getElementById("userEmail").focus();
 	                return;
 	            } else if(document.getElementById("userPhoneNum").value.length <= 0) {
 	                alert("전화번호를 입력하세요.");
+	                document.getElementById("userPhoneNum").focus();
 	                return;
 	            }
 	            document.getElementById("regform").submit();
@@ -41,7 +53,7 @@
         	<input type="hidden" name="action" value="registmember">
             <div class="user-box">
                 <input id="userId" type="text" name="userId" required="">
-                <label>아이디<span style="color: #c95050;">*</span></label>
+                <label>아이디<span style="color: #c95050;">*</span></label>
             </div>
             <div class="user-box">
                 <input id="userPw" type="password" name="userPw" required="">
@@ -49,7 +61,7 @@
             </div>
             <div class="user-box">
                 <input id="userName" type="text" name="userName" required="">
-                <label>이름<span style="color: #c95050;">*</span></label>
+                <label>이름<span style="color: #c95050;">*</span></label>
             </div>
             <div class="user-box">
                 <input id="userEmail" type="text" name="userEmail" required="">
@@ -59,7 +71,7 @@
                 <input id="userPhoneNum" type="text" name="userPhoneNum" required="">
                 <label>전화번호<span style="color: #c95050;">*</span></label>
             </div>
-            <a id="registbutton" href="#">등록</a><!-- onclick="regist()" -->
+            <a id="registbutton" href="#">등록</a>
         </form>
     </div>
     <!-- Header-->
